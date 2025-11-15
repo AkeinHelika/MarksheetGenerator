@@ -1,242 +1,299 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Liquid Glass Design</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Marksheet Dashboard (Fixed)</title>
   <style>
-    /* ===== Base Page ===== */
-    body {
-      margin: 0;
-      font-family: "Poppins", sans-serif;
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      min-height: 100vh;
-      overflow-x: hidden;
-      color: #fff;
-    }
-
-    /* ===== Navbar ===== */
-    nav {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      margin: 30px auto;
-      padding: 12px 50px;
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
-    }
-
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: 500;
-      letter-spacing: 0.5px;
-      transition: color 0.3s ease;
-    }
-
-    nav a:hover {
-      color: #00eaff;
-    }
-
-    /* ===== Main Cards Section ===== */
-    .container {
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      gap: 35px;
-      flex-wrap: wrap;
-      padding: 40px 20px;
-    }
-
-    .card {
-      width: 280px;
-      height: 350px;
-      border-radius: 25px;
-      background: rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(20px) saturate(200%);
-      -webkit-backdrop-filter: blur(20px) saturate(200%);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.05),
-                  0 10px 25px rgba(0, 0, 0, 0.3);
-      color: white;
-      padding: 30px 25px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      text-align: center;
-      transition: all 0.4s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Highlight reflection layer */
-    .card::before {
-      content: "";
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(
-        circle at top left,
-        rgba(255, 255, 255, 0.35),
-        transparent 70%
-      );
-      opacity: 0.15;
-      transform: rotate(25deg);
-    }
-
-    .card:hover {
-      transform: translateY(-10px) scale(1.02);
-      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.45);
-    }
-
-    .card h3 {
-      font-size: 1.4rem;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
-    }
-
-    .card p {
-      font-size: 0.95rem;
-      opacity: 0.9;
-    }
-
-    .btn {
-      background: rgba(255, 255, 255, 0.25);
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      border-radius: 12px;
-      padding: 10px 25px;
-      color: white;
-      text-decoration: none;
-      font-weight: 600;
-      transition: all 0.3s ease;
-    }
-
-    .btn:hover {
-      background: rgba(255, 255, 255, 0.45);
-      color: #111;
-      transform: scale(1.05);
-    }
-
-    /* ===== Services Section ===== */
-    .services {
-      position: relative;
-      padding: 80px 20px;
-      max-width: 950px;
-      margin: auto;
-    }
-
-    .services h2 {
-      text-align: center;
-      font-size: 2.8rem;
-      margin-bottom: 60px;
-      text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-    }
-
-    .timeline {
-      position: relative;
-      margin-left: 50px;
-      border-left: 2px solid rgba(255, 255, 255, 0.4);
-    }
-
-    .service-box {
-      position: relative;
-      background: rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(20px) saturate(200%);
-      -webkit-backdrop-filter: blur(20px) saturate(200%);
-      border-radius: 15px;
-      margin: 40px 0;
-      padding: 25px 30px;
-      color: #fff;
-      width: calc(100% - 100px);
-      margin-left: 70px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .service-box:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.45);
-    }
-
-    .service-box::before {
-      content: "";
-      position: absolute;
-      left: -38px;
-      top: 30px;
-      width: 20px;
-      height: 20px;
-      background: radial-gradient(circle, #00eaff 0%, #0066ff 90%);
-      border-radius: 50%;
-      box-shadow: 0 0 15px #00eaff;
-    }
-
-    @media (max-width: 768px) {
-      .container {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .service-box {
-        width: calc(100% - 50px);
-        margin-left: 50px;
-      }
-
-      .timeline {
-        margin-left: 25px;
-      }
-    }
+    :root{--bg:#f6f8fb;--card:#ffffff;--muted:#6b7280;--accent:#2563eb;--radius:12px;--text:#0f172a}
+    *{box-sizing:border-box}
+    body{font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial;margin:0;background:var(--bg);color:var(--text)}
+    .wrap{max-width:1280px;margin:18px auto;padding:18px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    h1{margin:0;font-size:20px}
+    nav{display:flex;gap:8px}
+    .btn{background:var(--accent);color:white;border:none;padding:8px 12px;border-radius:10px;cursor:pointer}
+    .btn.ghost{background:transparent;border:1px solid rgba(0,0,0,0.06);color:var(--text)}
+    .card{background:var(--card);padding:16px;border-radius:var(--radius);box-shadow:0 6px 18px rgba(2,6,23,0.04);margin-top:14px}
+    .grid{display:grid;gap:12px}
+    .cols-3{grid-template-columns:repeat(3,1fr)}
+    .cols-2{grid-template-columns:repeat(2,1fr)}
+    label{font-size:13px;color:var(--muted);display:block}
+    input[type=text],input[type=number],select,textarea{width:100%;padding:8px;border-radius:8px;border:1px solid #e6e9ef;margin-top:6px;background:transparent;color:var(--text)}
+    .small{font-size:12px;color:var(--muted)}
+    table{width:100%;border-collapse:collapse;margin-top:8px;font-size:13px}
+    th,td{border:1px solid #dfe7f2;padding:8px;text-align:center}
+    th{background:#f1f5f9}
+    .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    footer{margin-top:18px;text-align:center;color:var(--muted);font-size:13px}
+    .layout{display:grid;grid-template-columns:260px 1fr;gap:12px}
+    .sidebar{height:calc(100vh - 120px);overflow:auto;padding:12px}
+    .student-item{padding:8px;border-radius:8px;margin-bottom:6px;cursor:pointer;border:1px solid transparent}
+    .student-item.active{background:#eef6ff;border-color:#dbeafe}
+    .modal{position:fixed;inset:0;background:rgba(2,6,23,0.5);display:flex;align-items:center;justify-content:center;padding:20px;z-index:50}
+    .modal .panel{background:var(--card);padding:16px;border-radius:10px;width:100%;max-width:820px}
+    @media(max-width:980px){.layout{grid-template-columns:1fr} .sidebar{height:auto}}
+    @media(max-width:700px){table{font-size:12px}}
+    .footer-small{font-size:12px;color:var(--muted)}
+    input.mark-input{width:120px;padding:6px;border-radius:6px;border:1px solid #e6e9ef}
   </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.19.3/xlsx.full.min.js"></script>
 </head>
 <body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>Marksheet Dashboard</h1>
+        <div class="small">Light • Save/Load • PDF (B/W stroke) • Excel • Per-subject tables</div>
+      </div>
+      <nav>
+        <button class="btn" id="navHome">Home</button>
+        <button class="btn" id="navMarksheet">Marksheet</button>
+        <button class="btn" id="navPreview">Preview</button>
+      </nav>
+    </header>
 
-  <nav>
-    <a href="#">Home</a>
-    <a href="#">Register</a>
-    <a href="#">Contact</a>
-  </nav>
+    <div class="layout">
+      <aside class="card sidebar" id="sidebar">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <strong>Students</strong>
+          <div><button class="btn ghost" id="addQuick">+ Add</button></div>
+        </div>
+        <div class="small" style="margin-bottom:8px">Click a student to view/edit individual marks on the right.</div>
+        <div id="studentList"></div>
+        <div style="margin-top:12px">
+          <div class="small">Search</div>
+          <input id="searchStudent" type="text" placeholder="Search name or reg" />
+        </div>
+      </aside>
 
-  <!-- Glass Cards -->
-  <div class="container">
-    <div class="card">
-      <h3>Text ABC</h3>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-      <a href="#" class="btn">View</a>
-    </div>
-    <div class="card">
-      <h3>Text ABD</h3>
-      <p>Doloribus, quae quas nihil exercitationem cupiditate maiores.</p>
-      <a href="#" class="btn">View</a>
-    </div>
-    <div class="card">
-      <h3>Text ABL</h3>
-      <p>Architecto odit deserunt aut. Iure, adipisci placeat!</p>
-      <a href="#" class="btn">View</a>
+      <main>
+        <section id="home" class="card">
+          <div class="grid cols-3">
+            <div>
+              <label>School Name<input id="inpSchool" type="text" placeholder="Dharmapala Vidyalaya, Pannipitiya"></label>
+              <label>Class / Form<input id="inpClass" type="text" placeholder="Grade 10 - A"></label>
+            </div>
+            <div>
+              <label>Teacher's Name<input id="inpTeacher" type="text" placeholder="Mrs. Tharika Thalaga"></label>
+              <label>How many students? <span class="small">(optional)</span><input id="inpCount" type="number" min="1"></label>
+            </div>
+            <div>
+              <label>School Logo (optional)<input id="inpLogo" type="file" accept="image/*"></label>
+              <div style="margin-top:8px;display:flex;align-items:center;gap:8px">
+                <img id="logoPreview" style="height:52px;display:none;border-radius:8px;object-fit:contain" />
+                <div>
+                  <div class="small">Subjects (enter here). These will create separate subject tables.</div>
+                  <label style="margin-top:8px">Subjects (comma separated)<input id="homeSubjects" type="text" placeholder="Math, English, Science"></label>
+                  <div style="display:flex;gap:8px;margin-top:8px"><button class="btn" id="goMarksheet">Start</button><button class="btn ghost" id="importHome">Import Excel (Names)</button></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="footer-small" style="margin-top:12px">Upload Excel: first sheet, first two columns => Reg, Name. This populates the student sidebar and creates entries for per-subject tables.</p>
+        </section>
+
+        <section id="marksheet" class="card" style="display:none">
+          <div class="grid cols-3">
+            <div>
+              <label>Pick Table<select id="subjectSelect"><option value="full">Full Marksheet (all subjects)</option></select></label>
+            </div>
+            <div>
+              <label>Quick add Reg<input id="inpReg" type="text" placeholder="2025-01"></label>
+              <label>Quick add Name<input id="inpName" type="text" placeholder="Student Name"></label>
+            </div>
+            <div>
+              <div style="display:flex;gap:8px;margin-top:24px">
+                <button class="btn" id="btnAdd">Add Student</button>
+                <button class="btn ghost" id="btnBulk">Auto add by count</button>
+                <button class="btn ghost" id="btnUploadNames">Upload Excel Names</button>
+              </div>
+            </div>
+          </div>
+
+          <div id="tablesArea" style="margin-top:12px"></div>
+
+          <div class="actions" style="margin-top:12px">
+            <button class="btn" id="openExportModal">Export (PDF / Excel)</button>
+            <button class="btn ghost" id="saveBtn">Save (Browser)</button>
+            <button class="btn ghost" id="loadBtn">Load (Browser)</button>
+          </div>
+        </section>
+
+        <section id="preview" class="card" style="display:none">
+          <div id="previewArea"></div>
+          <div class="actions" style="margin-top:10px"><button class="btn" id="backToEdit">Back</button><button class="btn" id="previewExport">Export PDF</button></div>
+        </section>
+
+        <footer class="card footer-small center">Built for schools • Save locally • Light theme • © Marksheet</footer>
+      </main>
     </div>
   </div>
 
-  <!-- Our Services -->
-  <section class="services">
-    <h2>Our Services</h2>
-    <div class="timeline">
-      <div class="service-box">
-        <h3>Service One</h3>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis adipisci fugit laudantium.</p>
+  <div id="exportModal" class="modal" style="display:none">
+    <div class="panel">
+      <h3>Export Options</h3>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
+        <label><input type="checkbox" id="optFull"> Download full marksheet (single table)</label>
+        <label><input type="checkbox" id="optPerSubject"> Download separate subject tables (each on own page)</label>
+        <label><input type="checkbox" id="optIncludeSummary" checked> Include summary page</label>
       </div>
-      <div class="service-box">
-        <h3>Service Two</h3>
-        <p>Voluptatibus illum quae ullam blanditiis unde officia molestias doloremque sequi explicabo.</p>
-      </div>
-      <div class="service-box">
-        <h3>Service Three</h3>
-        <p>Dicta, enim dolorem minus! Aperiam ratione provident voluptates temporibus tempora?</p>
+      <div style="margin-top:12px" class="actions">
+        <button class="btn" id="doPdf">Download PDF (B/W stroke)</button>
+        <button class="btn" id="doExcel">Download Excel</button>
+        <button class="btn ghost" id="closeModal">Close</button>
       </div>
     </div>
-  </section>
+  </div>
 
+<script>
+(function(){
+  // State
+  let subjects = [];
+  let students = []; // {reg,name,marks:{sub:value},total,avg,position}
+  let logoData = null;
+
+  // Elements
+  const navHome = document.getElementById('navHome');
+  const navMarksheet = document.getElementById('navMarksheet');
+  const navPreview = document.getElementById('navPreview');
+  const inpSchool = document.getElementById('inpSchool');
+  const inpClass = document.getElementById('inpClass');
+  const inpTeacher = document.getElementById('inpTeacher');
+  const inpCount = document.getElementById('inpCount');
+  const inpLogo = document.getElementById('inpLogo');
+  const logoPreview = document.getElementById('logoPreview');
+  const goMarksheet = document.getElementById('goMarksheet');
+  const importHome = document.getElementById('importHome');
+  const homeSubjects = document.getElementById('homeSubjects');
+  const subjectSelect = document.getElementById('subjectSelect');
+  const inpReg = document.getElementById('inpReg');
+  const inpName = document.getElementById('inpName');
+  const btnAdd = document.getElementById('btnAdd');
+  const btnBulk = document.getElementById('btnBulk');
+  const btnUploadNames = document.getElementById('btnUploadNames');
+  const tablesArea = document.getElementById('tablesArea');
+  const studentList = document.getElementById('studentList');
+  const addQuick = document.getElementById('addQuick');
+  const searchStudent = document.getElementById('searchStudent');
+  const openExportModal = document.getElementById('openExportModal');
+  const exportModal = document.getElementById('exportModal');
+  const closeModal = document.getElementById('closeModal');
+  const doPdf = document.getElementById('doPdf');
+  const doExcel = document.getElementById('doExcel');
+  const optFull = document.getElementById('optFull');
+  const optPerSubject = document.getElementById('optPerSubject');
+  const optIncludeSummary = document.getElementById('optIncludeSummary');
+  const saveBtn = document.getElementById('saveBtn');
+  const loadBtn = document.getElementById('loadBtn');
+  const previewArea = document.getElementById('previewArea');
+  const backToEdit = document.getElementById('backToEdit');
+  const previewExport = document.getElementById('previewExport');
+  const homeSection = document.getElementById('home');
+  const marksheetSection = document.getElementById('marksheet');
+  const previewSection = document.getElementById('preview');
+
+  // Navigation
+  navHome.addEventListener('click', ()=> show('home'));
+  navMarksheet.addEventListener('click', ()=> show('marksheet'));
+  navPreview.addEventListener('click', ()=> show('preview'));
+
+  goMarksheet.addEventListener('click', ()=>{
+    subjects = homeSubjects.value.split(',').map(s=>s.trim()).filter(Boolean);
+    buildEmptyMarksForStudents();
+    rebuildSubjectSelect();
+    renderAllTables();
+    show('marksheet');
+  });
+
+  function show(id){ homeSection.style.display = id==='home'? 'block':'none'; marksheetSection.style.display = id==='marksheet'? 'block':'none'; previewSection.style.display = id==='preview'? 'block':'none'; if(id==='marksheet') renderAllTables(); if(id==='preview') renderPreview(); }
+
+  // Logo
+  inpLogo.addEventListener('change', e=>{ const f = e.target.files[0]; if(!f) return; const r = new FileReader(); r.onload = ()=>{ logoData = r.result; logoPreview.src = logoData; logoPreview.style.display='block'; }; r.readAsDataURL(f); });
+
+  // Excel parse
+  function parseExcel(file, cb){ const r = new FileReader(); r.onload = e=>{ const data = new Uint8Array(e.target.result); const wb = XLSX.read(data,{type:'array'}); const sh = wb.Sheets[wb.SheetNames[0]]; const aoa = XLSX.utils.sheet_to_json(sh,{header:1}); cb(aoa); }; r.readAsArrayBuffer(file); }
+
+  importHome.addEventListener('click', ()=>{ const fEl = document.createElement('input'); fEl.type='file'; fEl.accept='.xls,.xlsx'; fEl.onchange = e=>{ const f = e.target.files[0]; if(!f) return; parseExcel(f, aoa=>{ aoa.forEach((row,idx)=>{ if(!row || row.length===0) return; const reg = row[0]?String(row[0]): `R${Date.now()%1000+idx}`; const name = row[1]?String(row[1]): row[0]?String(row[0]): `Student ${idx+1}`; const marks = {}; (homeSubjects.value.split(',').map(s=>s.trim()).filter(Boolean) || []).forEach(s=> marks[s]=''); students.push({reg,name,marks,total:0,avg:0,position:0}); }); alert('Imported names. Click Start to build tables.'); }); }; fEl.click(); });
+
+  // Build marks object for students when subjects change
+  function buildEmptyMarksForStudents(){ students.forEach(s=>{ subjects.forEach(sub=>{ if(!(sub in s.marks)) s.marks[sub]=''; }); }); }
+  function rebuildSubjectSelect(){ subjectSelect.innerHTML = '<option value="full">Full Marksheet (all subjects)</option>'; subjects.forEach(s=>{ const o = document.createElement('option'); o.value = s; o.textContent = s; subjectSelect.appendChild(o); }); }
+
+  // Add students
+  btnAdd.addEventListener('click', ()=>{ if(subjects.length===0) return alert('Enter subjects on Home first'); const reg = inpReg.value.trim() || `R${Date.now()%1000}`; const name = inpName.value.trim() || `Student ${students.length+1}`; const marks = {}; subjects.forEach(s=>marks[s]=''); students.push({reg,name,marks,total:0,avg:0,position:0}); inpReg.value=''; inpName.value=''; renderAllTables(); });
+
+  btnBulk.addEventListener('click', ()=>{ const cnt = Number(inpCount.value) || 0; if(!cnt) return alert('Set count on Home'); for(let i=1;i<=cnt;i++){ const reg = `R${1000+i}`; const name = `Student ${i}`; const marks={}; subjects.forEach(s=>marks[s]=''); students.push({reg,name,marks,total:0,avg:0,position:0}); } renderAllTables(); });
+
+  btnUploadNames.addEventListener('click', ()=>{ const fEl = document.createElement('input'); fEl.type='file'; fEl.accept='.xls,.xlsx'; fEl.onchange = e=>{ const f = e.target.files[0]; if(!f) return; parseExcel(f, aoa=>{ aoa.forEach((row,idx)=>{ if(!row || row.length===0) return; const reg = row[0]?String(row[0]):`R${Date.now()%1000+idx}`; const name = row[1]?String(row[1]):row[0]?String(row[0]):`Student ${idx+1}`; const marks={}; subjects.forEach(s=>marks[s]=''); students.push({reg,name,marks,total:0,avg:0,position:0}); }); renderAllTables(); }); }; fEl.click(); });
+
+  // Sidebar actions
+  addQuick.addEventListener('click', ()=>{ const name = prompt('Student name:') || `Student ${students.length+1}`; const reg = `R${Date.now()%1000}`; const marks={}; subjects.forEach(s=>marks[s]=''); students.push({reg,name,marks,total:0,avg:0,position:0}); renderAllTables(); });
+  searchStudent.addEventListener('input', ()=> renderSidebar(searchStudent.value));
+
+  function renderSidebar(filter=''){ const q = String(filter||'').toLowerCase(); let html = ''; students.forEach((s,i)=>{ if(q && !(s.name.toLowerCase().includes(q) || String(s.reg).toLowerCase().includes(q))) return; html += `<div class="student-item" data-i="${i}" id="student-${i}"><strong>${escapeHtml(s.name)}</strong><div class="small">${escapeHtml(s.reg)}</div></div>`; }); studentList.innerHTML = html; studentList.querySelectorAll('.student-item').forEach(el=> el.addEventListener('click', ()=>{ const idx = Number(el.dataset.i); openStudentPanel(idx); document.querySelectorAll('.student-item').forEach(it=> it.classList.remove('active')); el.classList.add('active'); })); }
+
+  function openStudentPanel(i){ const s = students[i]; const panel = document.createElement('div'); panel.className='modal'; panel.innerHTML = `<div class="panel"><h3>Edit: ${escapeHtml(s.name)}</h3><div style="display:grid;gap:8px;grid-template-columns:1fr 1fr"><label>Reg<input id="tmpReg" value="${escapeHtml(s.reg)}"></label><label>Name<input id="tmpName" value="${escapeHtml(s.name)}"></label></div><div style="margin-top:8px"><h4>Marks</h4><div id="tmpMarks"></div></div><div style="margin-top:12px;display:flex;gap:8px"><button id="saveStud" class="btn">Save</button><button id="closeStud" class="btn ghost">Close</button></div></div>`; document.body.appendChild(panel); const tmpMarks = panel.querySelector('#tmpMarks'); subjects.forEach(sub=>{ const val = s.marks[sub]===undefined? '': s.marks[sub]; const row = document.createElement('div'); row.style.marginBottom='6px'; row.innerHTML = `<label style="display:block">${escapeHtml(sub)}<input id="m-${escapeHtml(sub)}" value="${escapeHtml(String(val))}" class="mark-input"></label>`; tmpMarks.appendChild(row); }); panel.querySelector('#closeStud').addEventListener('click', ()=> panel.remove()); panel.querySelector('#saveStud').addEventListener('click', ()=>{ s.reg = panel.querySelector('#tmpReg').value; s.name = panel.querySelector('#tmpName').value; subjects.forEach(sub=> s.marks[sub] = panel.querySelector('#m-'+sub).value); panel.remove(); renderAllTables(); renderSidebar(searchStudent.value); }); }
+
+  // Subject selection & rendering
+  subjectSelect.addEventListener('change', ()=>{ const val = subjectSelect.value; if(val==='full') renderFullTable(); else renderSubjectTable(val); });
+
+  function computeStats(){ students.forEach(s=>{ const vals = subjects.map(sub=>{ const v = s.marks[sub]; if(v===''||v===undefined || String(v).toUpperCase()==='AB') return null; return Number(v)||0; }); const total = vals.reduce((a,b)=>a+(b||0),0); const count = vals.filter(x=>x!==null).length; s.total = total; s.avg = count? total/count:0; }); const sorted = [...students].sort((a,b)=> (b.total||0)-(a.total||0)); students.forEach(s=> s.position = sorted.findIndex(x=>x===s)+1); }
+
+  function renderAllTables(){ computeStats(); renderSidebar(searchStudent.value); rebuildSubjectSelect(); let html = '<div style="display:flex;gap:8px;flex-wrap:wrap">'; subjects.forEach(sub=> html += `<button class="btn ghost" style="border-radius:8px" data-subbtn="${escapeHtml(sub)}">${escapeHtml(sub)}</button>`); html += '</div>'; html += '<div class="small" style="margin-top:8px">Click a subject above or pick "Full Marksheet" from the dropdown to view/edit tables.</div>'; tablesArea.innerHTML = html; tablesArea.querySelectorAll('[data-subbtn]').forEach(b=> b.addEventListener('click', e=>{ const s = e.target.dataset.subbtn; subjectSelect.value = s; renderSubjectTable(s); })); }
+
+  // Full class table (all subjects) - editable marks in-line
+  function renderFullTable(){ computeStats(); renderSidebar(searchStudent.value); if(subjects.length===0){ tablesArea.innerHTML = '<div class="small">Add subjects on Home first</div>'; return; } let html = '<h3>Full Marksheet</h3><div style="overflow:auto"><table><thead><tr><th>No</th><th>Reg</th><th>Name</th>' + subjects.map(s=>`<th>${escapeHtml(s)}</th>`).join('') + '<th>Total</th><th>Average</th><th>Position</th></tr></thead><tbody>'; students.forEach((st,i)=>{ html += `<tr><td>${i+1}</td><td>${escapeHtml(st.reg)}</td><td style="text-align:left;padding-left:8px">${escapeHtml(st.name)}</td>`; subjects.forEach(sub=>{ const val = st.marks[sub]===undefined? '': st.marks[sub]; html += `<td><input class="mark-input" data-i="${i}" data-sub="${escapeHtml(sub)}" value="${escapeHtml(String(val))}"> <b>${escapeHtml(gradeOf(val))}</b></td>`; }); html += `<td>${st.total||0}</td><td>${(st.avg||0).toFixed(2)}</td><td>${st.position||''}</td></tr>`; }); html += '</tbody></table></div>'; html += renderSummaryHtml(); tablesArea.innerHTML = html; attachInlineListeners(); }
+
+  // Per-subject table
+  function renderSubjectTable(subject){ computeStats(); renderSidebar(searchStudent.value); if(!subject){ tablesArea.innerHTML = '<div class="small">Select subject</div>'; return; } let html = `<h3>Subject: ${escapeHtml(subject)}</h3><div style="overflow:auto"><table><thead><tr><th>No</th><th>Reg</th><th>Name</th><th>Mark</th></tr></thead><tbody>`; students.forEach((st,i)=>{ const val = st.marks[subject]===undefined? '': st.marks[subject]; html += `<tr><td>${i+1}</td><td>${escapeHtml(st.reg)}</td><td style="text-align:left;padding-left:8px">${escapeHtml(st.name)}</td><td><input class="mark-input" data-i="${i}" data-sub="${escapeHtml(subject)}" value="${escapeHtml(String(val))}"> <b>${escapeHtml(gradeOf(val))}</b></td></tr>`; }); html += '</tbody></table></div>'; html += renderSummaryHtml(); tablesArea.innerHTML = html; attachInlineListeners(); }
+
+  // attach listeners to inline inputs for both full and per-subject tables
+  function attachInlineListeners(){ tablesArea.querySelectorAll('input.mark-input').forEach(inp=>{ inp.addEventListener('input', e=>{ const i = Number(e.target.dataset.i); const sub = e.target.dataset.sub; if(typeof i === 'number' && sub){ students[i].marks[sub] = e.target.value.trim(); computeStats(); // re-render the current view
+      const current = subjectSelect.value; if(current==='full') renderFullTable(); else renderSubjectTable(current); renderSidebar(searchStudent.value); } }); }); }
+
+  // Summary HTML
+  function renderSummaryHtml(){ if(subjects.length===0) return ''; const summary = {}; subjects.forEach(s=> summary[s] = {A:0,B:0,C:0,S:0,F:0,total:0,count:0}); students.forEach(st=> subjects.forEach(sub=>{ const m = st.marks[sub]; if(m===''||m===undefined) return; if(String(m).toUpperCase()==='AB') return; const num = Number(m)||0; const g = gradeOf(num); summary[sub][g]++; summary[sub].total += num; summary[sub].count++; })); let html = '<div style="margin-top:12px"><h3>Subject Summary</h3><div style="overflow:auto"><table><thead><tr><th>Subject</th><th>A</th><th>B</th><th>C</th><th>S</th><th>F</th><th>Average</th></tr></thead><tbody>'; subjects.forEach(sub=>{ const s = summary[sub]; const avg = s.count? (s.total/s.count).toFixed(2) : '-'; html += `<tr><td style="text-align:left;padding-left:8px">${escapeHtml(sub)}</td><td>${s.A}</td><td>${s.B}</td><td>${s.C}</td><td>${s.S}</td><td>${s.F}</td><td>${avg}</td></tr>`; }); html += '</tbody></table></div></div>'; return html; }
+
+  // Grade logic
+  function gradeOf(v){ if(String(v).toUpperCase()==='AB') return 'AB'; const m = Number(v); if(isNaN(m)) return ''; if(m>=75) return 'A'; if(m>=65) return 'B'; if(m>=50) return 'C'; if(m>=35) return 'S'; return 'F'; }
+
+  // Preview
+  document.getElementById('backToEdit').addEventListener('click', ()=> show('marksheet'));
+  document.getElementById('previewExport').addEventListener('click', ()=> exportPDF({full:true, per:false, summary:true}));
+
+  function renderPreview(){ computeStats(); let html = `<div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:700">${escapeHtml(inpSchool.value||'')}</div><div class="small">${escapeHtml(inpClass.value||'')} — Teacher: ${escapeHtml(inpTeacher.value||'')}</div></div>`; if(logoData) html += `<img src="${logoData}" style="height:64px">`; html += '</div>'; html += '<div style="margin-top:8px;overflow:auto"><table><thead><tr><th>No</th><th>Reg</th><th>Name</th>' + subjects.map(s=>`<th>${escapeHtml(s)}</th>`).join('') + '<th>Total</th><th>Average</th><th>Position</th></tr></thead><tbody>'; students.forEach((st,i)=>{ html += `<tr><td>${i+1}</td><td>${escapeHtml(st.reg)}</td><td style="text-align:left;padding-left:8px">${escapeHtml(st.name)}</td>`; subjects.forEach(sub=>{ const m = st.marks[sub]===undefined? '': st.marks[sub]; html += `<td>${escapeHtml(String(m))} <b>${escapeHtml(gradeOf(m))}</b></td>`; }); html += `<td>${st.total||0}</td><td>${(st.avg||0).toFixed(2)}</td><td>${st.position||''}</td></tr>`; }); html += '</tbody></table></div>'; html += renderSummaryHtml(); previewArea.innerHTML = html; }
+
+  // Export modal
+  openExportModal.addEventListener('click', ()=>{ exportModal.style.display='flex'; optFull.checked=true; optPerSubject.checked=false; optIncludeSummary.checked=true; });
+  closeModal.addEventListener('click', ()=> exportModal.style.display='none');
+  doPdf.addEventListener('click', ()=>{ const opts = { full: optFull.checked, per: optPerSubject.checked, summary: optIncludeSummary.checked }; exportPDF(opts); exportModal.style.display='none'; });
+  doExcel.addEventListener('click', ()=>{ const opts = { full: optFull.checked, per: optPerSubject.checked, summary: optIncludeSummary.checked }; exportExcel(opts); exportModal.style.display='none'; });
+
+  // Export PDF
+  function exportPDF(opts){ if(students.length===0) return alert('No students'); computeStats(); const { jsPDF } = window.jspdf; const doc = new jsPDF('landscape','pt','a4'); doc.setFontSize(12); const pageW = doc.internal.pageSize.getWidth(); doc.text(String(inpSchool.value||''),40,30); doc.text(`${String(inpClass.value||'')} — Teacher: ${String(inpTeacher.value||'')}`,40,46); if(logoData){ try{ doc.addImage(logoData,'PNG',pageW-110,18,64,64); }catch(e){ try{ doc.addImage(logoData,'JPEG',pageW-110,18,64,64);}catch(_){} } }
+    const tableStyles = { styles:{halign:'center',cellPadding:4,fontSize:9,textColor:[0,0,0]}, headStyles:{fillColor:[255,255,255],textColor:[0,0,0]}, theme:'grid', tableLineColor:[0,0,0], tableLineWidth:0.5 };
+    if(opts.full){ const head = ['No','Reg','Name', ...subjects, 'Total','Average','Position']; const body = students.map((s,i)=>{ const row = [i+1,s.reg,s.name]; subjects.forEach(sub=>{ const m = s.marks[sub]!==undefined? String(s.marks[sub]):''; const g = m===''?'':gradeOf(m); row.push((m? m:'') + (g? (' ' + g):'')); }); row.push(s.total||0,(s.avg||0).toFixed(2),s.position||''); return row; }); doc.autoTable(Object.assign({startY:72,head:[head],body:body}, tableStyles)); }
+    if(opts.per){ subjects.forEach((sub,idx)=>{ doc.addPage(); doc.setFontSize(12); doc.text(`${sub} — ${String(inpClass.value||'')}`,40,30); const head = ['No','Reg','Name','Mark']; const body = students.map((s,i)=> [i+1,s.reg,s.name, s.marks[sub]===undefined? '': String(s.marks[sub]) + (s.marks[sub]!==''? (' ' + gradeOf(s.marks[sub])):'') ]); doc.autoTable(Object.assign({startY:52,head:[head],body:body}, tableStyles)); }); }
+    if(opts.summary){ doc.addPage(); doc.setFontSize(12); doc.text('Subject Summary',40,30); const summary = {}; subjects.forEach(s=> summary[s] = {A:0,B:0,C:0,S:0,F:0,total:0,count:0}); students.forEach(st=> subjects.forEach(sub=>{ const m = st.marks[sub]; if(m===''||m===undefined) return; if(String(m).toUpperCase()==='AB') return; const num = Number(m)||0; const g = gradeOf(num); summary[sub][g]++; summary[sub].total += num; summary[sub].count++; })); const sumHead = ['Subject','A','B','C','S','F','Average']; const sumBody = subjects.map(sub=>{ const s = summary[sub]; const avg = s.count? (s.total/s.count).toFixed(2): '-'; return [sub,s.A,s.B,s.C,s.S,s.F,avg]; }); doc.autoTable(Object.assign({startY:52,head:[sumHead],body:sumBody}, tableStyles)); }
+    doc.save((inpClass.value||'class') + '_marksheet.pdf'); }
+
+  // Export Excel
+  function exportExcel(opts){ if(students.length===0) return alert('No students'); computeStats(); const head = ['No','Reg','Name', ...subjects, 'Total','Average','Position']; const rows = students.map((s,i)=>{ const r = [i+1,s.reg,s.name]; subjects.forEach(sub=> r.push(s.marks[sub]===undefined? '': s.marks[sub])); r.push(s.total||0,(s.avg||0).toFixed(2),s.position||''); return r; }); const ws1 = XLSX.utils.aoa_to_sheet([head, ...rows]); const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws1, 'Marksheet'); const summary = {}; subjects.forEach(s=> summary[s] = {A:0,B:0,C:0,S:0,F:0,total:0,count:0}); students.forEach(st=> subjects.forEach(sub=>{ const m = st.marks[sub]; if(m===''||m===undefined) return; if(String(m).toUpperCase()==='AB') return; const num = Number(m)||0; const g = gradeOf(num); summary[sub][g]++; summary[sub].total += num; summary[sub].count++; })); const sumHead = ['Subject','A','B','C','S','F','Average']; const sumRows = subjects.map(sub=>{ const s = summary[sub]; const avg = s.count? (s.total/s.count).toFixed(2): '-'; return [sub,s.A,s.B,s.C,s.S,s.F,avg]; }); const ws2 = XLSX.utils.aoa_to_sheet([sumHead, ...sumRows]); XLSX.utils.book_append_sheet(wb, ws2, 'Summary'); if(opts.per){ subjects.forEach(sub=>{ const sheetHead = ['No','Reg','Name','Mark','Grade']; const sheetRows = students.map((s,i)=> [i+1,s.reg,s.name, s.marks[sub]===undefined? '': s.marks[sub], gradeOf(s.marks[sub]) ]); const ws = XLSX.utils.aoa_to_sheet([sheetHead, ...sheetRows]); XLSX.utils.book_append_sheet(wb, ws, sub.substring(0,30)); }); } XLSX.writeFile(wb, (inpClass.value||'class') + '_marksheet.xlsx'); }
+
+  // Save / Load
+  saveBtn.addEventListener('click', ()=>{ const payload = { school: inpSchool.value, class: inpClass.value, teacher: inpTeacher.value, subjects, students, logo: logoData }; localStorage.setItem('marksheet_data', JSON.stringify(payload)); alert('Saved to browser memory'); });
+  loadBtn.addEventListener('click', ()=>{ const raw = localStorage.getItem('marksheet_data'); if(!raw) return alert('No saved data'); const p = JSON.parse(raw); inpSchool.value = p.school||''; inpClass.value = p.class||''; inpTeacher.value = p.teacher||''; subjects = p.subjects||[]; students = p.students||[]; logoData = p.logo||null; if(logoData){ logoPreview.src = logoData; logoPreview.style.display='block'; } homeSubjects.value = subjects.join(', '); rebuildSubjectSelect(); renderAllTables(); alert('Loaded'); });
+
+  // Helpers
+  function escapeHtml(s){ return String(s||'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;'); }
+  function gradeOf(v){ if(String(v).toUpperCase()==='AB') return 'AB'; const m = Number(v); if(isNaN(m)) return ''; if(m>=75) return 'A'; if(m>=65) return 'B'; if(m>=50) return 'C'; if(m>=35) return 'S'; return 'F'; }
+
+  // initial
+  renderAllTables(); renderSidebar(); show('home');
+})(); 
+</script>
 </body>
 </html>
