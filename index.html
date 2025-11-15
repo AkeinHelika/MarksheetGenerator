@@ -291,7 +291,7 @@
   function escapeHtml(s){ return String(s||'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;'); }
   function gradeOf(v){ if(String(v).toUpperCase()==='AB') return 'AB'; const m = Number(v); if(isNaN(m)) return ''; if(m>=75) return 'A'; if(m>=65) return 'B'; if(m>=50) return 'C'; if(m>=35) return 'S'; return 'F'; }
 
-  // initial
+  // initial 676
   renderAllTables(); renderSidebar(); show('home');
 })(); 
 </script>
